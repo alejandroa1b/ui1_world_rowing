@@ -22,7 +22,7 @@ class NoticiasController extends AbstractController
         ];
 
         $this->renderView('Noticias/list', [
-            $noticias
+            'noticias' => $noticias
         ]);
     }
 

@@ -10,6 +10,7 @@
     <nav>
         <ul>
             <li><a href="/">Inicio</a></li>
+            <li><a href="/noticias">Noticias</a></li>
         </ul>
     </nav>
 </header>
