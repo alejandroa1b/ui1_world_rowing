@@ -11,5 +11,9 @@ return [
     '/noticias' => [
         'controller' => NoticiasController::class,
         'method' => 'list'
+    ],
+    '/noticias/([0-9]+)' => [
+        'controller' => NoticiasController::class,
+        'method' => 'show'
     ]
 ];

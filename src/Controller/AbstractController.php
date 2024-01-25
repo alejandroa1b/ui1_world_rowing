@@ -20,4 +20,15 @@ abstract class AbstractController
 
         require __DIR__ . '/../View/' . $viewName . '.php';
     }
+
+    /**
+     * Función para retornar un error 404
+     * @return void
+     */
+    protected function returnNotFound() {
+        // Ruta no encontrada, manejar el error o redireccionar
+        http_response_code(404);
+        require __DIR__ . '/../View/404.php';
+        exit;
+    }
 }
