@@ -1,6 +1,7 @@
 <?php
 
 use App\Controller\HomeController;
+use App\Controller\NoticiasController;
 
 return [
     '/' => [

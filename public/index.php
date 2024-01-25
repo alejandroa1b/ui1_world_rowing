@@ -8,12 +8,19 @@ $routes = require __DIR__ . '/../config/routes.php';
 
 $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-if (array_key_exists($requestUri, $routes)) {
-    $controllerName = $routes[$requestUri]['controller'];
-    $methodName = $routes[$requestUri]['method'];
-    $controller = new $controllerName();
-    $controller->$methodName();
-} else {
+$routeExists = false;
+foreach ($routes as $route => $dataRoute) {
+    if (preg_match("~^$route$~", $requestUri, $matches)) {
+        $routeExists = true;
+        array_shift($matches);
+        $controllerClass = $dataRoute['controller'];
+        $methodName = $dataRoute['method'];
+        $controller = new $controllerClass();
+        $controller->$methodName(...$matches);
+        break;
+    }
+}
+if (!$routeExists){
     // Ruta no encontrada, manejar el error o redireccionar
     http_response_code(404);
     require __DIR__ . '/../src/View/404.php';
