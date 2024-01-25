@@ -1,6 +1,6 @@
 <?php
 $titulo = "Home";
-$content = "
+$contenido = "
     <p>$mensaje</p>
 ";
 

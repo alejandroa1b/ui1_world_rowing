@@ -15,7 +15,7 @@
 </header>
 
 <main>
-    <?php echo $content; ?>
+    <?php echo $contenido; ?>
 </main>
 
 <footer>
