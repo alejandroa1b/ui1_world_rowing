@@ -12,7 +12,7 @@ class HomeController extends AbstractController
      */
     public function index()
     {
-        $this->renderView('home/home',[
+        $this->renderView('Home/home',[
             'mensaje' => "Hola UI1!"
         ]);
     }

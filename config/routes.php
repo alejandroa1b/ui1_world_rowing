@@ -7,5 +7,9 @@ return [
     '/' => [
         'controller' => HomeController::class,
         'method' => 'index'
+    ],
+    '/noticias' => [
+        'controller' => NoticiasController::class,
+        'method' => 'list'
     ]
 ];
