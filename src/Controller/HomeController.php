@@ -28,8 +28,7 @@ class HomeController extends AbstractController
     public function index()
     {
         $this->renderView('Home/home',[
-            'mensaje' => "Hola UI1!",
-            'noticias' => $this->noticiasService->getUltimasNoticias(5)
+            'noticias' => $this->noticiasService->getUltimasNoticias(3)
         ]);
     }
 }
