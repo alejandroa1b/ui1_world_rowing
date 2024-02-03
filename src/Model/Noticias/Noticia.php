@@ -76,6 +76,14 @@ class Noticia
     }
 
     /**
+     * @return string
+     */
+    public function getResumenCuerpo()
+    {
+        return substr($this->cuerpo, 0, 150);
+    }
+
+    /**
      * @param string $cuerpo
      * @return Noticia
      */
