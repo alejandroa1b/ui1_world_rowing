@@ -8,7 +8,7 @@ namespace App\Controller;
 abstract class AbstractController
 {
     /**
-     * Reenderizado de vistas
+     * Renderizado de vistas
      *
      * @param $viewName
      * @param $data

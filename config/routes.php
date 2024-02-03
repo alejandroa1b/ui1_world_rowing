@@ -1,5 +1,6 @@
 <?php
 
+use App\Controller\DeportistasController;
 use App\Controller\HomeController;
 use App\Controller\MantenimientoController;
 use App\Controller\NoticiasController;
@@ -35,6 +36,10 @@ return [
     '/resultados/{id}' => [
         'controller' => ResultadosController::class,
         'method' => 'show'
+    ],
+    '/deportistas' => [
+        'controller' => DeportistasController::class,
+        'method' => 'list'
     ],
     '/mantenimiento' => [
         'controller' => MantenimientoController::class,
