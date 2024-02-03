@@ -23,16 +23,6 @@ class NoticiasController extends AbstractController
     }
 
     /**
-     * Función para listar las noticias
-     */
-    public function list()
-    {
-        $this->renderView('Noticias/list', [
-            'noticias' => $this->noticiasService->getUltimasNoticias()
-        ]);
-    }
-
-    /**
      * Función para ver una noticia
      * @param int $idNoticia
      * @return void
