@@ -31,11 +31,11 @@ return [
     ],
     '/resultados' => [
         'controller' => ResultadosController::class,
-        'method' => 'list'
+        'method' => 'listEdiciones'
     ],
     '/resultados/{id}' => [
         'controller' => ResultadosController::class,
-        'method' => 'show'
+        'method' => 'showEdicion'
     ],
     '/deportistas' => [
         'controller' => DeportistasController::class,

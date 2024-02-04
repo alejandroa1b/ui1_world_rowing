@@ -2,18 +2,35 @@
 
 namespace App\Controller;
 
+use App\Service\Resultados\ResultadosService;
+
 /**
  * Controlador para la sección de resultados
  */
 class ResultadosController extends AbstractController
 {
     /**
+     * @var ResultadosService
+     */
+    private $resultadosService;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->resultadosService = new ResultadosService();
+    }
+
+    /**
      * Función para el listado de las ediciones de campeonatos
      * @return void
      */
-    public function list()
+    public function listEdiciones()
     {
-        echo "en desarrollo..";
+        $this->renderView('Resultados/ediciones', [
+            'ediciones' => $this->resultadosService->getEdiciones()
+        ]);
     }
 
     /**
@@ -21,8 +38,8 @@ class ResultadosController extends AbstractController
      * @param int $id
      * @return void
      */
-    public function show(int $id)
+    public function showEdicion(int $id)
     {
-        echo "en desarrollo...";
+        echo "En desarrollo...";
     }
 }
