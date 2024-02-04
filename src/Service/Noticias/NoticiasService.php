@@ -16,12 +16,13 @@ class NoticiasService
      */
     public function getNoticia(int $idNoticia): ?Noticia
     {
-        //Obtenemos la noticia del montón de noticias falseadas
-        $noticias = array_filter($this->getDummyNews(), function (Noticia $noticia) use ($idNoticia){
-           return $noticia->getId() == $idNoticia;
-        });
+        foreach ($this->getDummyNews() as $noticia) {
+            if ($noticia->getId() == $idNoticia) {
+                return $noticia;
+            }
+        }
 
-        return count($noticias) ? $noticias[0] : null;
+        return null;
     }
 
     /**
