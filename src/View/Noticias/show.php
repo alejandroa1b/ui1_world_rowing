@@ -4,10 +4,13 @@ ob_start();
 ?>
     <div class="row">
         <div class="col s12 m12">
+            <div style="margin-top: 1em; margin-bottom: 1em" ">
+                <a href="/" style="display: flex; align-items: center;"><span class="material-icons">arrow_back</span> Volver al inicio</a>
+            </div>
             <div class="card">
                 <div class="card-image">
-                    <img src="<?= $noticia->getImageURL() ?>">
-                    <span class="card-title"><?= $noticia->getTitular(); ?></span>
+                    <img alt="Imágen de la noticia" src="<?= $noticia->getImageURL() ?>">
+                    <span class="card-title light-blue-text grey lighten-5 text-darken-4"><?= $noticia->getTitular(); ?></span>
                 </div>
                 <div class="card-content">
                     <p><?= $noticia->getCuerpo() ?></p>.</p>
