@@ -13,7 +13,8 @@ ob_start();
                     <span class="card-title light-blue-text grey lighten-5 text-darken-4"><?= $noticia->getTitular(); ?></span>
                 </div>
                 <div class="card-content">
-                    <p><?= $noticia->getCuerpo() ?></p>.</p>
+                    <p style="font-size: 0.8em;" class="grey-text"><?= $noticia->getFecha()->format('Y-m-d H:i:s'); ?> </p>
+                    <p><?= $noticia->getCuerpo() ?></p></p>
                 </div>
             </div>
         </div>

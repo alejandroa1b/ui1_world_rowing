@@ -2,6 +2,8 @@
 
 namespace App\Model\Noticias;
 
+use DateTime;
+
 class Noticia
 {
     /**
@@ -9,6 +11,12 @@ class Noticia
      * @var int
      */
     private $id;
+
+    /**
+     * Fecha de la noticia
+     * @var DateTime
+     */
+    private $fecha;
 
     /**
      * Titular de la noticia
@@ -43,9 +51,31 @@ class Noticia
         return $this->id;
     }
 
+    /**
+     * @param int $id
+     * @return $this
+     */
     public function setId(int $id): Noticia
     {
         $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getFecha(): DateTime
+    {
+        return $this->fecha;
+    }
+
+    /**
+     * @param DateTime $fecha
+     * @return $this
+     */
+    public function setFecha(DateTime $fecha): self
+    {
+        $this->fecha = $fecha;
         return $this;
     }
 
