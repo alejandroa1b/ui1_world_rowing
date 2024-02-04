@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\Noticias\NoticiasService;
+use Exception;
 
 /**
  * Controlador de inicio
@@ -24,6 +25,7 @@ class HomeController extends AbstractController
 
     /**
      * Función principal
+     * @throws Exception
      */
     public function index()
     {

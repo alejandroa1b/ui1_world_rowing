@@ -3,6 +3,7 @@
 namespace App\Model\Noticias;
 
 use DateTime;
+use Exception;
 
 class Noticia
 {
@@ -76,6 +77,29 @@ class Noticia
     public function setFecha(DateTime $fecha): self
     {
         $this->fecha = $fecha;
+        return $this;
+    }
+
+    /**
+     * Obtener la fecha en formato normalizado
+     * @return string
+     */
+    public function getFechaNormalizada(): string
+    {
+        return $this->fecha->format('Y-m-d H:i:s');
+    }
+
+    /**
+     * Función para establecer la fecha a partir de una cadena normalizada.
+     * Formato de la cadena válido: Y-m-d H:i:s
+     * @param string $fecha
+     * @return $this
+     *
+     * @throws Exception
+     */
+    public function setFechaNormalizada(string $fecha): self
+    {
+        $this->fecha = new DateTime($fecha);
         return $this;
     }
 
