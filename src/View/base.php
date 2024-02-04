@@ -26,7 +26,7 @@
         </nav>
     </header>
 
-    <main class="container">
+    <main class="container" style="margin-top: 20px">
             <?php echo $contenido; ?>
     </main>
 
