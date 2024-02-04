@@ -20,6 +20,7 @@
                     <li><a href="/">Inicio</a></li>
                     <li><a href="/resultados">Resultados</a></li>
                     <li><a href="/deportistas">Deportistas</a></li>
+                    <li><a href="/contacto">Contacto</a></li>
                     <li><a href="/mantenimiento">Mantenimiento</a></li>
                 </ul>
             </div>

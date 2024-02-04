@@ -41,6 +41,10 @@ return [
         'controller' => DeportistasController::class,
         'method' => 'list'
     ],
+    '/contacto' => [
+        'controller' => HomeController::class,
+        'method' => 'contact'
+    ],
     '/mantenimiento' => [
         'controller' => MantenimientoController::class,
         'method' => 'index'
