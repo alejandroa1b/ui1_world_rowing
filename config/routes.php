@@ -80,5 +80,21 @@ return [
     '/mantenimiento/deportistas/del/{id}' => [
         'controller' => MantenimientoController::class,
         'method' => 'delDeportista'
-    ]
+    ],
+    '/mantenimiento/resultados' => [
+        'controller' => MantenimientoController::class,
+        'method' => 'resultados'
+    ],
+    '/mantenimiento/resultados/new' => [
+        'controller' => MantenimientoController::class,
+        'method' => 'newEdicion'
+    ],
+    '/mantenimiento/resultados/edit/{id}' => [
+        'controller' => MantenimientoController::class,
+        'method' => 'editEdicion'
+    ],
+    '/mantenimiento/resultados/del/{id}' => [
+        'controller' => MantenimientoController::class,
+        'method' => 'delEdicion'
+    ],
 ];

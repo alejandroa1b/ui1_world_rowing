@@ -53,6 +53,24 @@ class Edicion
     /**
      * @return string
      */
+    public function getGenero(): string
+    {
+        return $this->genero;
+    }
+
+    /**
+     * @param string $genero
+     * @return $this
+     */
+    public function setGenero(string $genero): self
+    {
+        $this->genero = $genero;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getCodigo(): string
     {
         return $this->codigo;

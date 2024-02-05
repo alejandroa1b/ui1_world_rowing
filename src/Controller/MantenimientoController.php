@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Service\Deportistas\DeportistasService;
 use App\Service\Noticias\NoticiasService;
+use App\Service\Resultados\ResultadosService;
 use Exception;
 
 /**
@@ -22,12 +23,18 @@ class MantenimientoController extends AbstractController
     private $deportistasService;
 
     /**
+     * @var ResultadosService
+     */
+    private $resultadosService;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->noticiasService = new NoticiasService();
         $this->deportistasService = new DeportistasService();
+        $this->resultadosService = new ResultadosService();
     }
 
     /**
@@ -68,7 +75,7 @@ class MantenimientoController extends AbstractController
 
             // Enviamos los datos al servicio
             if ($this->noticiasService->createNoticia($titular, $cuerpo, $imageURL)) {
-                $this->redirect('/mantenimiento/noticias?statis=success&msg=La noticia se ha creado correctamente');
+                $this->redirect('/mantenimiento/noticias?status=success&msg=La noticia se ha creado correctamente');
             } else {
                 $this->redirect('/mantenimiento/noticias?status=error&msg=Ha ocurrido un error al crear la noticia');
             }
@@ -167,7 +174,7 @@ class MantenimientoController extends AbstractController
 
             // Enviamos los datos al servicio
             if ($this->deportistasService->createDeportista($nombre, $codPais, $nombre)) {
-                $this->redirect('/mantenimiento/deportistas?statis=success&msg=El deportista se ha creado correctamente');
+                $this->redirect('/mantenimiento/deportistas?status=success&msg=El deportista se ha creado correctamente');
             } else {
                 $this->redirect('/mantenimiento/deportistas?status=error&msg=Ha ocurrido un error al crear el deportista');
             }
@@ -235,4 +242,122 @@ class MantenimientoController extends AbstractController
             'deportista' => $deportista
         ]);
     }
+
+    /**
+     * Función para mostrar la página de mantenimiento de resultados
+     * @return void
+     * @throws Exception
+     */
+    public function resultados()
+    {
+        $status = $_GET['status'] ?? null;
+        $msg = htmlspecialchars($_GET['msg']) ?? null;
+        $this->renderView('Mantenimiento/resultados/resultados', [
+            'ediciones' => $this->resultadosService->getEdiciones(),
+            'status' => $status,
+            'msg' => $msg
+        ]);
+    }
+
+    /**
+     * Función para mostrar el formulario de creación de una nueva edición
+     * @return void
+     */
+    public function newEdicion()
+    {
+        // Manejamos el envío del formulario
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $genero = $_POST['generp'];
+            $codigo = $_POST['codigo'];
+            $nombre = $_POST['nombre'];
+
+            // Enviamos los datos al servicio
+            if ($this->resultadosService->createEdicion($genero, $codigo, $nombre)) {
+                $this->redirect('/mantenimiento/resultados?status=success&msg=La edición se ha creado correctamente');
+            } else {
+                $this->redirect('/mantenimiento/resultados?status=error&msg=Ha ocurrido un error al crear la edición');
+            }
+        }
+
+        // Mostramos el formulario
+        $this->renderView('Mantenimiento/resultados/editEdicion', []);
+    }
+
+    /**
+     * Función para mostrar el formulario de edición de una edición
+     * @param int $id
+     * @return void
+     * @throws Exception
+     */
+    public function editEdicion(int $id)
+    {
+        $edicion = $this->resultadosService->getEdicion($id);
+        if (!$edicion) {
+            $this->returnNotFound();
+        }
+
+        // Manejamos el envío del formulario
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $genero = $_POST['genero'];
+            $codigo = $_POST['codigo'];
+            $nombre = $_POST['nombre'];
+
+            // Enviamos los datos al servicio
+            if ($this->resultadosService->updateEdicion($id, $genero, $codigo, $nombre)) {
+                $this->redirect('/mantenimiento/resultados?status=success&msg=La edición se ha actualizado correctamente');
+            } else {
+                $this->redirect('/mantenimiento/resultados?status=error&msg=Ha ocurrido un error al actualizar la edición');
+            }
+        }
+
+        // Mostramos el formulario
+        $this->renderView('Mantenimiento/resultados/editEdicion', [
+            'edicion' => $edicion
+        ]);
+    }
+
+    /**
+     * Función para eliminar una edición
+     * @param int $id
+     * @return void
+     * @throws Exception
+     */
+    public function delEdicion(int $id)
+    {
+        $edicion = $this->resultadosService->getEdicion($id);
+        if (!$edicion) {
+            $this->returnNotFound();
+        }
+
+        // Manejamos el envío del formulario
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if ($this->resultadosService->deleteEdicion($id)) {
+                $this->redirect('/mantenimiento/resultados?status=success&msg=La edición se ha eliminado correctamente');
+            } else {
+                $this->redirect('/mantenimiento/resultados?status=error&msg=Ha ocurrido un error al eliminar la edición');
+            }
+        }
+
+        $this->renderView('Mantenimiento/resultados/delEdicion', [
+            'edicion' => $edicion
+        ]);
+    }
+
+    /**
+     * Función para mostrar la página de mantenimiento de resultados de una edición
+     * @return void
+     */
+    public function resultadosEdicion(int $idEdicion)
+    {
+
+        $status = $_GET['status'] ?? null;
+        $msg = htmlspecialchars($_GET['msg']) ?? null;
+        $this->renderView('Mantenimiento/resultados/ediciones', [
+            'ediciones' => $this->resultadosService->getEdiciones(),
+            'status' => $status,
+            'msg' => $msg
+        ]);
+    }
+
+    // TODO: Implementar las funciones para el mantenimiento de resultados de una edición
 }
