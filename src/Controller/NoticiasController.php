@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\Noticias\NoticiasService;
+use Exception;
 
 /**
  * Controlador para la sección de noticias
@@ -26,6 +27,7 @@ class NoticiasController extends AbstractController
      * Función para ver una noticia
      * @param int $idNoticia
      * @return void
+     * @throws Exception
      */
     public function show(int $idNoticia)
     {

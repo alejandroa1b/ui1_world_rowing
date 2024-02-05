@@ -14,6 +14,7 @@ class NoticiasService
      * Obtener una noticia por su identificador
      * @param int $idNoticia
      * @return Noticia|null
+     * @throws Exception
      */
     public function getNoticia(int $idNoticia): ?Noticia
     {
@@ -27,6 +28,16 @@ class NoticiasService
     }
 
     /**
+     * Función para obtener todas las noticias
+     * @return Noticia[]
+     * @throws Exception
+     */
+    public function getNoticias(): array
+    {
+        return $this->getDummyNews(); // TODO: Implementación de repositorio de noticias para obtenerlas de base de datos.
+    }
+
+    /**
      * Función que devuelve las últimas noticias
      * @param int $num Número máximo de noticias que se desea obtener. (10 por defecto)
      * @return array
@@ -36,6 +47,90 @@ class NoticiasService
     {
         // Falseamos las noticias
         return array_slice($this->getDummyNews(), 0, $num);
+    }
+
+    /**
+     * Función para crear una nueva noticia
+     * @param string|null $titular
+     * @param string|null $cuerpo
+     * @param string|null $imageURL
+     * @return bool
+     */
+    public function createNoticia(string $titular = null, string $cuerpo = null, string $imageURL = null): bool
+    {
+        // Validamos los datos
+        if (empty($titular) || empty($cuerpo) || empty($imageURL)) {
+            return false;
+        }
+
+        // Limpiamos los datos
+        $titular = htmlspecialchars($titular);
+        $cuerpo = htmlspecialchars($cuerpo);
+        $imageURL = htmlspecialchars($imageURL);
+
+        // TODO: Implementación de repositorio de noticias para guardar la noticia en base de datos.
+        $noticia = (new Noticia())
+            ->setTitular($titular)
+            ->setCuerpo($cuerpo)
+            ->setImageURL($imageURL)
+            ->setFecha(new \DateTime());
+
+        return true;
+    }
+
+    /**
+     * Función para actualizar una noticia
+     * @param int $idNoticia
+     * @param string|null $titular
+     * @param string|null $cuerpo
+     * @param string|null $imageURL
+     * @return bool
+     * @throws Exception
+     */
+    public function updateNoticia(int $idNoticia, string $titular = null, string $cuerpo = null, string $imageURL = null): bool
+    {
+        // Validamos los datos
+        if (empty($titular) || empty($cuerpo) || empty($imageURL)) {
+            return false;
+        }
+
+        // Limpiamos los datos
+        $titular = htmlspecialchars($titular);
+        $cuerpo = htmlspecialchars($cuerpo);
+        $imageURL = htmlspecialchars($imageURL);
+
+        // Recuperamos la noticia
+        $noticia = $this->getNoticia($idNoticia);
+        if (!$noticia) {
+            return false;
+        }
+
+        // Actualizamos los datos
+        $noticia->setTitular($titular)
+            ->setCuerpo($cuerpo)
+            ->setImageURL($imageURL);
+
+        // TODO: Implementación de repositorio de noticias para guardar la noticia en base de datos.
+
+        return true;
+    }
+
+    /**
+     * Función para eliminar una noticia
+     * @param int $idNoticia
+     * @return bool
+     * @throws Exception
+     */
+    public function deleteNoticia(int $idNoticia): bool
+    {
+        // Obtenemos la noticia
+        $noticia = $this->getNoticia($idNoticia);
+        if (!$noticia) {
+            return false;
+        }
+
+        // TODO: Implementación de repositorio de noticias para eliminar la noticia de base de datos.
+        return true;
     }
 
     /**

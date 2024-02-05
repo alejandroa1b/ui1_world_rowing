@@ -48,5 +48,21 @@ return [
     '/mantenimiento' => [
         'controller' => MantenimientoController::class,
         'method' => 'index'
+    ],
+    '/mantenimiento/noticias' => [
+        'controller' => MantenimientoController::class,
+        'method' => 'noticias'
+    ],
+    '/mantenimiento/noticias/new' => [
+        'controller' => MantenimientoController::class,
+        'method' => 'newNoticia'
+    ],
+    '/mantenimiento/noticias/edit/{id}' => [
+        'controller' => MantenimientoController::class,
+        'method' => 'editNoticia'
+    ],
+    '/mantenimiento/noticias/del/{id}' => [
+        'controller' => MantenimientoController::class,
+        'method' => 'delNoticia'
     ]
 ];
