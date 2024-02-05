@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\Deportistas\DeportistasService;
 use App\Service\Noticias\NoticiasService;
 use Exception;
 
@@ -16,11 +17,17 @@ class MantenimientoController extends AbstractController
     private $noticiasService;
 
     /**
+     * @var DeportistasService
+     */
+    private $deportistasService;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->noticiasService = new NoticiasService();
+        $this->deportistasService = new DeportistasService();
     }
 
     /**
@@ -128,6 +135,104 @@ class MantenimientoController extends AbstractController
 
         $this->renderView('Mantenimiento/noticias/delNoticia', [
             'noticia' => $noticia
+        ]);
+    }
+
+    /**
+     * Función para mostrar la página de mantenimiento de deportistas
+     * @return void
+     * @throws Exception
+     */
+    public function deportistas()
+    {
+        $status = $_GET['status'] ?? null;
+        $msg = htmlspecialchars($_GET['msg']) ?? null;
+        $this->renderView('Mantenimiento/deportistas/deportistas', [
+            'deportistas' => $this->deportistasService->getDeportistas(),
+            'status' => $status,
+            'msg' => $msg
+        ]);
+    }
+
+    /**
+     * Función para mostrar el formulario de creación de un nuevo deportista
+     * @return void
+     */
+    public function newDeportista()
+    {
+        // Manejamos el envío del formulario
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $codPais = $_POST['codPais'];
+            $nombre = $_POST['nombre'];
+
+            // Enviamos los datos al servicio
+            if ($this->deportistasService->createDeportista($nombre, $codPais, $nombre)) {
+                $this->redirect('/mantenimiento/deportistas?statis=success&msg=El deportista se ha creado correctamente');
+            } else {
+                $this->redirect('/mantenimiento/deportistas?status=error&msg=Ha ocurrido un error al crear el deportista');
+            }
+        }
+
+        // Mostramos el formulario
+        $this->renderView('Mantenimiento/deportistas/editDeportista', []);
+    }
+
+    /**
+     * Función para mostrar el formulario de edición de un deportista
+     * @param int $id
+     * @return void
+     * @throws Exception
+     */
+    public function editDeportista(int $id)
+    {
+        $deportista = $this->deportistasService->getDeportista($id);
+        if (!$deportista) {
+            $this->returnNotFound();
+        }
+
+        // Manejamos el envío del formulario
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $codPais = $_POST['codPais'];
+            $nombre = $_POST['nombre'];
+
+            // Enviamos los datos al servicio
+            if ($this->deportistasService->updateDeportista($id, $codPais, $nombre)) {
+                $this->redirect('/mantenimiento/deportistas?status=success&msg=El deportista se ha actualizado correctamente');
+            } else {
+                $this->redirect('/mantenimiento/deportistas?status=error&msg=Ha ocurrido un error al actualizar el deportista');
+            }
+        }
+
+        // Mostramos el formulario
+        $this->renderView('Mantenimiento/deportistas/editDeportista', [
+            'deportista' => $deportista
+        ]);
+    }
+
+    /**
+     * Función para eliminar un deportista
+     * @param int $id
+     * @return void
+     * @throws Exception
+     */
+    public function delDeportista(int $id)
+    {
+        $deportista = $this->deportistasService->getDeportista($id);
+        if (!$deportista) {
+            $this->returnNotFound();
+        }
+
+        // Manejamos el envío del formulario
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if ($this->deportistasService->deleteDeportista($id)) {
+                $this->redirect('/mantenimiento/deportistas?status=success&msg=El deportista se ha eliminado correctamente');
+            } else {
+                $this->redirect('/mantenimiento/deportistas?status=error&msg=Ha ocurrido un error al eliminar el deportista');
+            }
+        }
+
+        $this->renderView('Mantenimiento/deportistas/delDeportista', [
+            'deportista' => $deportista
         ]);
     }
 }

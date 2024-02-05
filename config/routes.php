@@ -64,5 +64,21 @@ return [
     '/mantenimiento/noticias/del/{id}' => [
         'controller' => MantenimientoController::class,
         'method' => 'delNoticia'
+    ],
+    '/mantenimiento/deportistas' => [
+        'controller' => MantenimientoController::class,
+        'method' => 'deportistas'
+    ],
+    '/mantenimiento/deportistas/new' => [
+        'controller' => MantenimientoController::class,
+        'method' => 'newDeportista'
+    ],
+    '/mantenimiento/deportistas/edit/{id}' => [
+        'controller' => MantenimientoController::class,
+        'method' => 'editDeportista'
+    ],
+    '/mantenimiento/deportistas/del/{id}' => [
+        'controller' => MantenimientoController::class,
+        'method' => 'delDeportista'
     ]
 ];
