@@ -13,8 +13,8 @@ El resto de funcionalidades serán implementadas en las siguientes fases.
 - **Estructura Básica:** Página de inicio con imagen, menú y sección de noticias.
 - **Secciones de la Aplicación:**
     - `Resultados`: Tabla para mostrar resultados de competiciones (vacía actualmente).
-    - `Noticias`: Sección para mostrar las últimas noticias  (vacía actualmente).
-    - `Contacto`: Formulario de contacto (sin funcionalidad de envío en esta fase).
+    - `Deportistas`: Tabla para mostrar los deportistas que han competido en cualquiera de las pruebas (vacía actualmente).
+    - `Contacto`: Formulario de contacto.
     - `Mantenimiento`: Sección para futuros formularios de administración (acceso restringido en fases futuras).
 
 ## Estructura del proyecto
@@ -30,6 +30,8 @@ El proyecto sigue una estructura basada en el patrón de diseño Modelo-Vista-Co
   - `Model/`: Aquí se almacenan los modelos que representan los datos y la lógica de acceso a la base de datos.
 
   - `View/`: Contiene las vistas de la aplicación, que definen la presentación de las páginas web.
+ 
+  - `Service`: Contiene los servicios para dar funcionalidad a los diferentes módulos de la aplicación.
 
 - `config/`: En esta carpeta se encuentran los archivos de configuración de la aplicación. El archivo routes.php define las rutas de la aplicación, relacionando las URL con controladores y métodos correspondientes.
 
