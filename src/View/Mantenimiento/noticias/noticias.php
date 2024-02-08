@@ -9,7 +9,7 @@ ob_start();
     <a href="/mantenimiento" style="display: flex; align-items: center;"><span
                 class="material-icons">arrow_back</span>
         Volver</a>
-</div>a
+</div>
 <h3 class="mt-3 mb-3 light-blue-text text-darken-4">Mantenimiento de noticias</h3>
 <?php
 if ($status == 'success'): ?>
