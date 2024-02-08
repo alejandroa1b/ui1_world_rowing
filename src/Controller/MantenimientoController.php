@@ -173,7 +173,7 @@ class MantenimientoController extends AbstractController
             $nombre = $_POST['nombre'];
 
             // Enviamos los datos al servicio
-            if ($this->deportistasService->createDeportista($nombre, $codPais, $nombre)) {
+            if ($this->deportistasService->createDeportista($codPais, $nombre)) {
                 $this->redirect('/mantenimiento/deportistas?status=success&msg=El deportista se ha creado correctamente');
             } else {
                 $this->redirect('/mantenimiento/deportistas?status=error&msg=Ha ocurrido un error al crear el deportista');
@@ -267,7 +267,7 @@ class MantenimientoController extends AbstractController
     {
         // Manejamos el envío del formulario
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $genero = $_POST['generp'];
+            $genero = $_POST['genero'];
             $codigo = $_POST['codigo'];
             $nombre = $_POST['nombre'];
 

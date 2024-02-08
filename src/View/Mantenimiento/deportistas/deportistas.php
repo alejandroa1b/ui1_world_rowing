@@ -10,6 +10,26 @@ ob_start();
         Volver</a>
 </div>
 <h3 class="mt-3 mb-3 light-blue-text text-darken-4">Mantenimiento de deportistas</h3>
+<?php
+if ($status == 'success'): ?>
+    <div class="card green lighten-4" id="alert">
+        <div class="card-content">
+            <p>
+                <span onclick="document.getElementById('alert').style.display='none'" class="btn btn-floating btn-small grey" style="cursor: pointer">X</span>
+                <?= $msg ?>
+            </p>
+        </div>
+    </div>
+<?php elseif ($status == 'error'): ?>
+    <div class="card red lighten-4" id="alert">
+        <div class="card-content">
+            <p>
+                <span onclick="document.getElementById('alert').style.display='none'" class="btn btn-floating btn-small grey" style="cursor: pointer">X</span>
+                <?= $msg ?>
+            </p>
+        </div>
+    </div>
+<?php endif; ?>
 <div style="display: flex; align-items: center; justify-content: end">
     <a href="/mantenimiento/deportistas/new" class="btn" style
     ="display: flex; align-items: center;"><i
