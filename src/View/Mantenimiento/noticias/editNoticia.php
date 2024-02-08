@@ -7,7 +7,7 @@ ob_start();
 <div style="margin-top: 1em; margin-bottom: 1em">
     <a href="/mantenimiento/noticias" style="display: flex; align-items: center;"><span
                 class="material-icons">arrow_back</span>
-        Volver al mantenimiento</a>
+        Volver</a>
 </div>
 <h3 class="mt-3 mb-3 light-blue-text text-darken-4">Mantenimiento de noticias</h3>
 <div class="card">

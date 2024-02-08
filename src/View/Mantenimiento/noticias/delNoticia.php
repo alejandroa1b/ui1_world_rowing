@@ -9,7 +9,7 @@ ob_start();
             <div style="margin-top: 1em; margin-bottom: 1em"
             ">
             <a href="/mantenimiento/noticias" style="display: flex; align-items: center;"><span class="material-icons">arrow_back</span>
-                Volver al mantenimiento</a>
+                Volver</a>
         </div>
         <div class="card">
             <div class="card-content">
