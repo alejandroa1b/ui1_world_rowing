@@ -3,6 +3,7 @@
 namespace App\Service\Deportistas;
 
 use App\Model\Deportistas\Deportista;
+use App\Repository\DeportistaRepository;
 
 /**
  * Servicio para la lógica de negocio del módulo de deportistas
@@ -10,13 +11,25 @@ use App\Model\Deportistas\Deportista;
 class DeportistasService
 {
     /**
+     * @var DeportistaRepository
+     */
+    private $deportistaRepository;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->deportistaRepository = new DeportistaRepository();
+    }
+
+    /**
      * Función para obtener todos los deportistas
      * @return Deportista[]
      */
     public function getDeportistas(): array
     {
-        $deportistas = []; // TODO: Obtener los deportistas del repositorio
-        return $deportistas;
+        return $this->deportistaRepository->findAll();
     }
 
     /**
@@ -26,8 +39,7 @@ class DeportistasService
      */
     public function getDeportista(int $id): ?Deportista
     {
-        $deportista = new Deportista(); // TODO: Obtener el deportista del repositorio
-        return $deportista;
+        return $this->deportistaRepository->find($id);
     }
 
     /**
@@ -38,7 +50,7 @@ class DeportistasService
      */
     public function createDeportista(string $codPais = null, string $nombre = null): bool
     {
-        // Validamos que los campos no estén vacios, que el código del país no tenga longitud menor o mayor a 3 y que no se intnenten inyecciones sql ni similares
+        // Validamos que los campos no estén vacíos, que el código del país no tenga longitud menor o mayor a 3 y que no se intenten inyecciones sql ni similares
         if (empty($codPais) || empty($nombre) || strlen($codPais) != 3 || strlen($nombre) > 50 || strlen($nombre) < 3 || preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $nombre) || preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $codPais)) {
             return false;
         }
@@ -48,7 +60,8 @@ class DeportistasService
             ->setCodPais($codPais)
             ->setNombre($nombre);
 
-        return true; // TODO: Guardar el deportista en el repositorio
+        // Insertamos el deportista
+        return $this->deportistaRepository->insert($deportista);
     }
 
     /**
@@ -60,7 +73,7 @@ class DeportistasService
      */
     public function updateDeportista(int $id, string $codPais = null, string $nombre = null): bool
     {
-        // Validamos que los campos no estén vacios, que el código del país no tenga longitud menor o mayor a 3 y que no se intnenten inyecciones sql ni similares
+        // Validamos que los campos no estén vacíos, que el código del país no tenga longitud menor o mayor a 3 y que no se intnenten inyecciones sql ni similares
         if (empty($codPais) || empty($nombre) || strlen($codPais) != 3 || strlen($nombre) > 50 || strlen($nombre) < 3 || preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $nombre) || preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $codPais)) {
             return false;
         }
@@ -76,7 +89,8 @@ class DeportistasService
             ->setCodPais($codPais)
             ->setNombre($nombre);
 
-        return true; // TODO: Guardar el deportista en el repositorio
+        // Actualizamos el deportista
+        return $this->deportistaRepository->update($deportista);
     }
 
     /**
@@ -92,6 +106,7 @@ class DeportistasService
             return false;
         }
 
-        return true; // TODO: Eliminar el deportista del repositorio
+        // Eliminamos el deportista
+        return $this->deportistaRepository->delete($deportista);
     }
 }

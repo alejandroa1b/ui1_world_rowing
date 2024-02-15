@@ -29,7 +29,7 @@ class DeportistasController extends AbstractController
     public function list()
     {
         $this->renderView('Deportistas/list', [
-            $deportistas = $this->deportistasService->getDeportistas()
+            'deportistas' => $this->deportistasService->getDeportistas()
         ]);
     }
 }

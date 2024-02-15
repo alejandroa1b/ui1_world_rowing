@@ -49,7 +49,7 @@ if ($status == 'success'): ?>
     <?php foreach ($deportistas as $deportista): ?>
         <tr>
             <td><?= $deportista->getId() ?></td>
-            <td><?= $deportista->getCodPasi() ?></td>
+            <td><?= $deportista->getCodPais() ?></td>
             <td><?= $deportista->getNombre() ?></td>
             <td style="display: flex; align-items: center;">
                 <a href="/mantenimiento/deportistas/edit/<?= $deportista->getId() ?>" class="btn"
