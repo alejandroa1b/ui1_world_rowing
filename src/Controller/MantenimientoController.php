@@ -42,6 +42,7 @@ class MantenimientoController extends AbstractController
      */
     public function index()
     {
+        $this->requireLogin();
         $this->renderView('Mantenimiento/index', []);
     }
 
@@ -52,6 +53,7 @@ class MantenimientoController extends AbstractController
      */
     public function noticias()
     {
+        $this->requireLogin();
         $status = $_GET['status'] ?? null;
         $msg = htmlspecialchars($_GET['msg']) ?? null;
         $this->renderView('Mantenimiento/noticias/noticias', [
@@ -67,6 +69,7 @@ class MantenimientoController extends AbstractController
      */
     public function newNoticia()
     {
+        $this->requireLogin();
         // Manejamos el envío del formulario
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $titular = $_POST['titular'];
@@ -93,6 +96,7 @@ class MantenimientoController extends AbstractController
      */
     public function editNoticia(int $id)
     {
+        $this->requireLogin();
         $noticia = $this->noticiasService->getNoticia($id);
         if (!$noticia) {
             $this->returnNotFound();
@@ -126,6 +130,7 @@ class MantenimientoController extends AbstractController
      */
     public function delNoticia(int $id)
     {
+        $this->requireLogin();
         $noticia = $this->noticiasService->getNoticia($id);
         if (!$noticia) {
             $this->returnNotFound();
@@ -152,6 +157,7 @@ class MantenimientoController extends AbstractController
      */
     public function deportistas()
     {
+        $this->requireLogin();
         $status = $_GET['status'] ?? null;
         $msg = htmlspecialchars($_GET['msg']) ?? null;
         $this->renderView('Mantenimiento/deportistas/deportistas', [
@@ -167,6 +173,7 @@ class MantenimientoController extends AbstractController
      */
     public function newDeportista()
     {
+        $this->requireLogin();
         // Manejamos el envío del formulario
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $codPais = $_POST['codPais'];
@@ -192,6 +199,7 @@ class MantenimientoController extends AbstractController
      */
     public function editDeportista(int $id)
     {
+        $this->requireLogin();
         $deportista = $this->deportistasService->getDeportista($id);
         if (!$deportista) {
             $this->returnNotFound();
@@ -224,6 +232,7 @@ class MantenimientoController extends AbstractController
      */
     public function delDeportista(int $id)
     {
+        $this->requireLogin();
         $deportista = $this->deportistasService->getDeportista($id);
         if (!$deportista) {
             $this->returnNotFound();
@@ -250,6 +259,7 @@ class MantenimientoController extends AbstractController
      */
     public function resultados()
     {
+        $this->requireLogin();
         $status = $_GET['status'] ?? null;
         $msg = htmlspecialchars($_GET['msg']) ?? null;
         $this->renderView('Mantenimiento/resultados/resultados', [
@@ -265,6 +275,7 @@ class MantenimientoController extends AbstractController
      */
     public function newEdicion()
     {
+        $this->requireLogin();
         // Manejamos el envío del formulario
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $genero = $_POST['genero'];
@@ -291,6 +302,7 @@ class MantenimientoController extends AbstractController
      */
     public function editEdicion(int $id)
     {
+        $this->requireLogin();
         $edicion = $this->resultadosService->getEdicion($id);
         if (!$edicion) {
             $this->returnNotFound();
@@ -324,6 +336,7 @@ class MantenimientoController extends AbstractController
      */
     public function delEdicion(int $id)
     {
+        $this->requireLogin();
         $edicion = $this->resultadosService->getEdicion($id);
         if (!$edicion) {
             $this->returnNotFound();
@@ -350,6 +363,7 @@ class MantenimientoController extends AbstractController
     public function resultadosEdicion(int $idEdicion)
     {
 
+        $this->requireLogin();
         $status = $_GET['status'] ?? null;
         $msg = htmlspecialchars($_GET['msg']) ?? null;
         $this->renderView('Mantenimiento/resultados/ediciones', [

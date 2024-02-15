@@ -22,6 +22,9 @@
                     <li><a href="/deportistas">Deportistas</a></li>
                     <li><a href="/contacto">Contacto</a></li>
                     <li><a href="/mantenimiento">Mantenimiento</a></li>
+                    <?php if (isset($_SESSION['user'])): ?>
+                        <li><a href="/logout">Cerrar sesión</a></li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </nav>

@@ -43,4 +43,15 @@ abstract class AbstractController
         header('Location: ' . $route);
         exit;
     }
+
+    /**
+     * Función para requerir login
+     * @return void
+     */
+    protected function requireLogin()
+    {
+        if (!isset($_SESSION['user'])) {
+            $this->redirect('/login?redirect=' . $_SERVER['REQUEST_URI']);
+        }
+    }
 }

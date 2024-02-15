@@ -5,6 +5,7 @@ use App\Controller\HomeController;
 use App\Controller\MantenimientoController;
 use App\Controller\NoticiasController;
 use App\Controller\ResultadosController;
+use App\Controller\SecurityController;
 
 /**
  * Configuración de Rutas del Proyecto
@@ -96,5 +97,13 @@ return [
     '/mantenimiento/resultados/del/{id}' => [
         'controller' => MantenimientoController::class,
         'method' => 'delEdicion'
+    ],
+    '/login' => [
+        'controller' => SecurityController::class,
+        'method' => 'login'
+    ],
+    '/logout' => [
+        'controller' => SecurityController::class,
+        'method' => 'logout'
     ],
 ];
