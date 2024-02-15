@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS deportistas (
 CREATE TABLE IF NOT EXISTS ediciones (
     id INT AUTO_INCREMENT PRIMARY KEY,
     genero ENUM('masculino', 'femenino') NOT NULL,
-    codigo VARCHAR(10) NOT NULL,
+    codigo VARCHAR(50) NOT NULL,
     nombre VARCHAR(255) NOT NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

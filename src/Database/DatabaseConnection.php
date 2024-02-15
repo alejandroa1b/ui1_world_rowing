@@ -11,7 +11,7 @@ class DatabaseConnection
 {
     private static $connection;
 
-    public static function getConnection()
+    public static function getConnection(): PDO
     {
         if (self::$connection === null) {
             self::$connection = new PDO('mysql:host=db;dbname=ui1_world_rowing', 'root', 'password_for_database');
