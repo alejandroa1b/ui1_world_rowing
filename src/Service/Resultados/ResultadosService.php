@@ -3,7 +3,10 @@
 namespace App\Service\Resultados;
 
 use App\Model\Resultados\Edicion;
+use App\Model\Resultados\EdicionResultadoDeportista;
+use App\Repository\DeportistaRepository;
 use App\Repository\EdicionRepository;
+use App\Repository\ResultadosEdicionRepository;
 
 /**
  * Servicio para la lógica de negocio del módulo de resultados
@@ -16,11 +19,23 @@ class ResultadosService
     private $edicionRepository;
 
     /**
+     * @var DeportistaRepository
+     */
+    private $deportistaRepository;
+
+    /**
+     * @var ResultadosEdicionRepository
+     */
+    private $resultadosEdicionRepository;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->edicionRepository = new EdicionRepository();
+        $this->deportistaRepository = new DeportistaRepository();
+        $this->resultadosEdicionRepository = new ResultadosEdicionRepository();
     }
 
     /**
@@ -125,7 +140,89 @@ class ResultadosService
      */
     public function getResultadosEdicion(int $idEdicion): array
     {
-        $resultados = []; // TODO: Obtener los resultados de la edición cuando existan en base de datos.
-        return $resultados;
+        return $this->resultadosEdicionRepository->findByEdicion($idEdicion);
+    }
+
+    /**
+     * Obtener un resultado de una edición del campeonato
+     * @param int $idResultadoEdicion
+     * @return EdicionResultadoDeportista|null
+     */
+    public function getResultadoEdicion(int $idResultadoEdicion): ?EdicionResultadoDeportista
+    {
+       return $this->resultadosEdicionRepository->find($idResultadoEdicion);
+    }
+
+    public function createResultadoEdicion(int $idEdicion, int $idDeportista, int $posicion, string $tiempo): bool
+    {
+        // Validamos que el tiempo sea un número entero
+        if (!is_numeric($tiempo)) {
+            return false;
+        }
+
+        // Creamos el resultado
+        $edicion = $this->edicionRepository->find($idEdicion);
+        $deportista = $this->deportistaRepository->find($idDeportista);
+        $resultado = (new EdicionResultadoDeportista())
+            ->setEdicion($edicion)
+            ->setDeportista($deportista)
+            ->setPosicion($posicion)
+            ->setTiempo($tiempo);
+
+        // Insertamos el resultado
+        return $this->resultadosEdicionRepository->insert($resultado);
+    }
+
+    /**
+     * Actualizar un resultado de una edición del campeonato
+     *
+     * @param int $idResultado
+     * @param int $idDeportista
+     * @param int $posicion
+     * @param string $tiempo
+     * @return bool
+     */
+    public function updateResultadoEdicion(int $idResultado, int $idDeportista, int $posicion, string $tiempo): bool
+    {
+
+        // Validamos que el tiempo sea un número entero
+        if (!is_numeric($tiempo)) {
+            return false;
+        }
+
+        // Obtenemos el resultado a actualizar
+        $resultado = $this->getResultadoEdicion($idResultado);
+        if (!$resultado) {
+            return false;
+        }
+
+
+        // Creamos el resultado
+        $deportista = $this->deportistaRepository->find($idDeportista);
+        $resultado
+            ->setDeportista($deportista)
+            ->setPosicion($posicion)
+            ->setTiempo($tiempo);
+
+        // Insertamos el resultado
+        return $this->resultadosEdicionRepository->update($resultado);
+    }
+
+
+    /**
+     * Eliminar un resultado de una edición del campeonato
+     * @param int $idResultado
+     * @return bool
+     */
+    public function deleteResultado(int $idResultado): bool
+    {
+        // Obtenemos la edición
+        $resultado = $this->resultadosEdicionRepository->find($idResultado);
+        if (!$resultado) {
+            return false;
+        }
+
+        // Eliminamos la edición
+        return $this->resultadosEdicionRepository->delete($resultado);
     }
 }

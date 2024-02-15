@@ -98,6 +98,22 @@ return [
         'controller' => MantenimientoController::class,
         'method' => 'delEdicion'
     ],
+    '/mantenimiento/resultados/{id}' => [
+        'controller' => MantenimientoController::class,
+        'method' => 'resultadosEdicion'
+    ],
+    '/mantenimiento/resultados/{id}/new' => [
+        'controller' => MantenimientoController::class,
+        'method' => 'newResultadoEdicion'
+    ],
+    '/mantenimiento/resultados/{id}/edit/{id}' => [
+        'controller' => MantenimientoController::class,
+        'method' => 'editResultadoEdicion'
+    ],
+    '/mantenimiento/resultados/{id}/del/{id}' => [
+        'controller' => MantenimientoController::class,
+        'method' => 'delResultadoEdicion'
+    ],
     '/login' => [
         'controller' => SecurityController::class,
         'method' => 'login'

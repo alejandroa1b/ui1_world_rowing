@@ -1,6 +1,6 @@
 <?php
-$titular = 'Eliminar edición';
-$edicion = $edicion ?? null;
+$titular = 'Eliminar resultado';
+$resultado = $resultado ?? null;
 ob_start();
 ?>
 
@@ -13,10 +13,11 @@ ob_start();
     </div>
     <div class="card">
         <div class="card-content">
-            <h3>¿Estás seguro de que quieres eliminar la edición?</h3>
-            <p>Genero: <?= $edicion->getGenero() ?></p>
-            <p>Código: <?= $edicion->getCodigo() ?></p>
-            <p>Nombre: <?= $edicion->getNombre() ?></p>
+            <h3>¿Estás seguro de que quieres eliminar el resultado?</h3>
+            <p>Edición: <?= $resultado->getEdicion()->getNombre() ?></p>
+            <p>Deportista: <?= $resultado->getDeportista()->getNombre() ?></p>
+            <p>Posición: <?= $resultado->getPosicion() ?></p>
+            <p>Tiempo: <?= $resultado->getTiempo() ?></p>
             <form method="post" action="<?= $_SERVER['REQUEST_URI'] ?>">
                 <button class="waves-effect waves-light btn-large red darken-2" type="submit">Eliminar</button>
             </form>

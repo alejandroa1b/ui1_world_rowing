@@ -50,7 +50,7 @@ abstract class BaseRepository
      * @param array $parameters
      * @return PDOStatement
      */
-    private function executeQuery(string $sql, array $parameters = [])
+    protected function executeQuery(string $sql, array $parameters = [])
     {
         $stmt = $this->dbConnection->prepare($sql);
         $stmt->execute($parameters);

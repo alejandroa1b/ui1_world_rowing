@@ -85,7 +85,9 @@ class MantenimientoController extends AbstractController
         }
 
         // Mostramos el formulario
-        $this->renderView('Mantenimiento/noticias/editNoticia', []);
+        $this->renderView('Mantenimiento/noticias/editNoticia', [
+            'action' => 'new'
+        ]);
     }
 
     /**
@@ -118,6 +120,7 @@ class MantenimientoController extends AbstractController
 
         // Mostramos el formulario
         $this->renderView('Mantenimiento/noticias/editNoticia', [
+            'action' => 'edit',
             'noticia' => $noticia
         ]);
     }
@@ -188,7 +191,9 @@ class MantenimientoController extends AbstractController
         }
 
         // Mostramos el formulario
-        $this->renderView('Mantenimiento/deportistas/editDeportista', []);
+        $this->renderView('Mantenimiento/deportistas/editDeportista', [
+            'action' => 'new'
+        ]);
     }
 
     /**
@@ -220,6 +225,7 @@ class MantenimientoController extends AbstractController
 
         // Mostramos el formulario
         $this->renderView('Mantenimiento/deportistas/editDeportista', [
+            'action' => 'edit',
             'deportista' => $deportista
         ]);
     }
@@ -262,7 +268,7 @@ class MantenimientoController extends AbstractController
         $this->requireLogin();
         $status = $_GET['status'] ?? null;
         $msg = htmlspecialchars($_GET['msg']) ?? null;
-        $this->renderView('Mantenimiento/resultados/resultados', [
+        $this->renderView('Mantenimiento/resultados/ediciones', [
             'ediciones' => $this->resultadosService->getEdiciones(),
             'status' => $status,
             'msg' => $msg
@@ -291,7 +297,9 @@ class MantenimientoController extends AbstractController
         }
 
         // Mostramos el formulario
-        $this->renderView('Mantenimiento/resultados/editEdicion', []);
+        $this->renderView('Mantenimiento/resultados/editEdicion', [
+            'action' => 'new'
+        ]);
     }
 
     /**
@@ -324,6 +332,7 @@ class MantenimientoController extends AbstractController
 
         // Mostramos el formulario
         $this->renderView('Mantenimiento/resultados/editEdicion', [
+            'action' => 'edit',
             'edicion' => $edicion
         ]);
     }
@@ -362,16 +371,112 @@ class MantenimientoController extends AbstractController
      */
     public function resultadosEdicion(int $idEdicion)
     {
-
         $this->requireLogin();
         $status = $_GET['status'] ?? null;
         $msg = htmlspecialchars($_GET['msg']) ?? null;
-        $this->renderView('Mantenimiento/resultados/ediciones', [
-            'ediciones' => $this->resultadosService->getEdiciones(),
+        $this->renderView('Mantenimiento/resultados/resultadosEdicion', [
+            'edicion' => $this->resultadosService->getEdicion($idEdicion),
+            'resultados' => $this->resultadosService->getResultadosEdicion($idEdicion),
             'status' => $status,
             'msg' => $msg
         ]);
     }
 
-    // TODO: Implementar las funciones para el mantenimiento de resultados de una edición
+    /**
+     * Función para mostrar el formulario de creación de un nuevo resultado para una edición
+     * @param int $idEdicion
+     * @return void
+     */
+    public function newResultadoEdicion(int $idEdicion)
+    {
+        $this->requireLogin();
+        // Manejamos el envío del formulario
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $idDeportista = $_POST['deportista'];
+            $posicion = $_POST['posicion'];
+            $tiempo = $_POST['tiempo'];
+
+            // Enviamos los datos al servicio
+            if ($this->resultadosService->createResultadoEdicion($idEdicion, $idDeportista, $posicion, $tiempo)) {
+                $this->redirect('/mantenimiento/resultados/' . $idEdicion . '?status=success&msg=El resultado se ha creado correctamente');
+            } else {
+                $this->redirect('/mantenimiento/resultados/' . $idEdicion . '?status=error&msg=Ha ocurrido un error al crear el resultado');
+            }
+        }
+
+        // Mostramos el formulario
+        $this->renderView('Mantenimiento/resultados/editResultado', [
+            'action' => 'new',
+            'edicion' => $this->resultadosService->getEdicion($idEdicion),
+            'deportistas' => $this->deportistasService->getDeportistas()
+        ]);
+    }
+
+    /**
+     * Función para mostrar el formulario de creación de un nuevo resultado para una edición
+     * @param int $idEdicion
+     * @param int $idResultado
+     * @return void
+     */
+    public function editResultadoEdicion(int $idEdicion, int $idResultado)
+    {
+        $this->requireLogin();
+        $edicion = $this->resultadosService->getEdicion($idEdicion);
+        $resultado = $this->resultadosService->getResultadoEdicion($idResultado);
+        if (!$edicion || !$resultado || $resultado->getEdicion()->getId() !== $idEdicion) {
+            $this->returnNotFound();
+        }
+
+        // Manejamos el envío del formulario
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $idDeportista = $_POST['deportista'];
+            $posicion = $_POST['posicion'];
+            $tiempo = $_POST['tiempo'];
+
+            // Enviamos los datos al servicio
+            if ($this->resultadosService->updateResultadoEdicion($idResultado, $idDeportista, $posicion, $tiempo)) {
+                $this->redirect('/mantenimiento/resultados/' . $idEdicion . '?status=success&msg=El resultado se ha creado correctamente');
+            } else {
+                $this->redirect('/mantenimiento/resultados/' . $idEdicion . '?status=error&msg=Ha ocurrido un error al crear el resultado');
+            }
+        }
+
+        // Mostramos el formulario
+        $this->renderView('Mantenimiento/resultados/editResultado', [
+            'action' => 'edit',
+            'edicion' => $edicion,
+            'resultado' => $resultado,
+            'deportistas' => $this->deportistasService->getDeportistas()
+        ]);
+    }
+
+    /**
+     * Función para eliminar un resultado de una edición
+     * @param int $idEdicion
+     * @param int $idResultado
+     * @return void
+     * @throws Exception
+     */
+    public function delResultadoEdicion(int $idEdicion, int $idResultado)
+    {
+        $this->requireLogin();
+        $edicion = $this->resultadosService->getEdicion($idEdicion);
+        $resultado = $this->resultadosService->getResultadoEdicion($idResultado);
+        if (!$edicion || !$resultado || $resultado->getEdicion()->getId() !== $idEdicion) {
+            $this->returnNotFound();
+        }
+
+        // Manejamos el envío del formulario
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if ($this->resultadosService->deleteResultado($idResultado)) {
+                $this->redirect("/mantenimiento/resultados/${idEdicion}?status=success&msg=La edición se ha eliminado correctamente");
+            } else {
+                $this->redirect("/mantenimiento/resultados/${idEdicion}?status=error&msg=Ha ocurrido un error al eliminar la edición");
+            }
+        }
+
+        $this->renderView('Mantenimiento/resultados/delResultado', [
+            'resultado' => $resultado
+        ]);
+    }
 }

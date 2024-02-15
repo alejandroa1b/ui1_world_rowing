@@ -1,5 +1,5 @@
 <?php
-$titulo = $noticia->getTitular();
+$titulo = $resultado->getTitular();
 ob_start();
 ?>
     <div class="row">
@@ -9,12 +9,12 @@ ob_start();
             </div>
             <div class="card">
                 <div class="card-image">
-                    <img alt="Imágen de la noticia" src="<?= $noticia->getImageURL() ?>">
-                    <span class="card-title light-blue-text grey lighten-5 text-darken-4"><?= $noticia->getTitular(); ?></span>
+                    <img alt="Imágen de la noticia" src="<?= $resultado->getImageURL() ?>">
+                    <span class="card-title light-blue-text grey lighten-5 text-darken-4"><?= $resultado->getTitular(); ?></span>
                 </div>
                 <div class="card-content">
-                    <p style="font-size: 0.8em;" class="grey-text"><?= $noticia->getFechaNormalizada(); ?> </p>
-                    <p><?= $noticia->getCuerpo() ?></p></p>
+                    <p style="font-size: 0.8em;" class="grey-text"><?= $resultado->getFechaNormalizada(); ?> </p>
+                    <p><?= $resultado->getCuerpo() ?></p></p>
                 </div>
             </div>
         </div>

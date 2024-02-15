@@ -40,9 +40,9 @@ class EdicionResultadoDeportista
     private $tiempo;
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -135,7 +135,9 @@ class EdicionResultadoDeportista
      */
     public function getTiempoNormalizado(): string
     {
-        return intdiv($this->tiempo, 60) . ":" . ($this->tiempo%60) ;
+        $minutos = floor($this->tiempo / 60);
+        $segundos = $this->tiempo % 60;
+        return sprintf('%02d:%02d', $minutos, $segundos);
     }
 
     /**
