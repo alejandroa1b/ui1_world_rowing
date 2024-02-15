@@ -2,11 +2,9 @@
 
 ## Descripción
 
-Este proyecto es una aplicación web desarrollada en PHP como proyecto de aprendizaje para la asignatura de Servicios y Aplicaciones Orientadas a la Web. 
+Este proyecto es una aplicación web desarrollada en PHP como proyecto de aprendizaje para la asignatura de Servicios y Aplicaciones Orientadas a la Web.
 
-Su objetivo es mostrar los resultados históricos de las competiciones internacionales de remo.
-Actualmente, el proyecto se centra en la estructura de la aplicación. 
-El resto de funcionalidades serán implementadas en las siguientes fases.
+Su objetivo es proporcionar una plataforma para mostrar los resultados de las competiciones de remo, así como información sobre los deportistas y las competiciones. Además, en la página de inicio se mostrarán noticias relacionadas con el mundo del remo.
 
 ## Características
 
@@ -17,21 +15,30 @@ El resto de funcionalidades serán implementadas en las siguientes fases.
     - `Contacto`: Formulario de contacto.
     - `Mantenimiento`: Sección para futuros formularios de administración (acceso restringido en fases futuras).
 
+## Arquitectura
+
+La aplicación sigue una arquitectura hexagonal, que separa la lógica de negocio de los detalles de implementación. La lógica de negocio se encuentra en el centro de la arquitectura, rodeada por capas que manejan la entrada y salida de datos, la interfaz de usuario y otros detalles de implementación.
+
+Además, hacemos uso de un Front Controller para gestionar todas las solicitudes web y un sistema de rutas para asociar las URL con los controladores y métodos correspondientes.
+
 ## Estructura del proyecto
 
-El proyecto sigue una estructura basada en el patrón de diseño Modelo-Vista-Controlador (MVC) con Front Controller. Esta arquitectura facilita la organización y mantenimiento del código de la aplicación. A continuación, se describe la estructura de directorios clave:
-
+La estructura del proyecto se organiza de la siguiente manera:
 - `public/`: En esta carpeta se encuentra el punto de entrada de la aplicación, el archivo index.php. Esta es la única ubicación accesible públicamente desde el navegador, y se utiliza como Front Controller para gestionar todas las solicitudes web.
 
 - `src/`: Aquí se encuentran los archivos de código fuente de la aplicación. La estructura de carpetas dentro de src/ sigue una organización lógica basada en controladores, modelos, vistas y otros componentes de la aplicación.
 
   - `Controller/`: Contiene los controladores de la aplicación, que manejan las solicitudes web y coordinan la lógica de negocio.
+  
+  - `Database/`: Contiene los archivos de configuración de la base de datos y la lógica de acceso a la base de datos.
 
   - `Model/`: Aquí se almacenan los modelos que representan los datos y la lógica de acceso a la base de datos.
 
-  - `View/`: Contiene las vistas de la aplicación, que definen la presentación de las páginas web.
- 
+  - `Repository/`: Contiene los repositorios que encapsulan la lógica de acceso a la base de datos y proporcionan una interfaz para interactuar con los modelos.
+
   - `Service`: Contiene los servicios para dar funcionalidad a los diferentes módulos de la aplicación.
+
+  - `View/`: Contiene las vistas de la aplicación, que definen la presentación de las páginas web.
 
 - `config/`: En esta carpeta se encuentran los archivos de configuración de la aplicación. El archivo routes.php define las rutas de la aplicación, relacionando las URL con controladores y métodos correspondientes.
 
@@ -63,6 +70,10 @@ La estructura del proyecto está diseñada para fomentar la modularidad y la esc
 4. **Ejecutar con Docker:**
 
    `docker-compose up`
+
+    La aplicación estará disponible en `http://localhost:8080`.
+
+Para crear el esquema de base de datos se debe lanzar el script: `mysql\init-db.sql`.
 
 ## Planificación del Proyecto
 La planificación y desarrollo del proyecto puede ser seguida desde Trello:
