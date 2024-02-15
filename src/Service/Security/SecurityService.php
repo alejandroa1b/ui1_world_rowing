@@ -18,9 +18,8 @@ class SecurityService
         if ($user === 'admin' && $password === '1234') {
             $_SESSION['user'] = 'admin';
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Service\Resultados;
 
 use App\Model\Resultados\Edicion;
+use App\Repository\EdicionRepository;
 
 /**
  * Servicio para la lógica de negocio del módulo de resultados
@@ -10,13 +11,25 @@ use App\Model\Resultados\Edicion;
 class ResultadosService
 {
     /**
+     * @var EdicionRepository
+     */
+    private $edicionRepository;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->edicionRepository = new EdicionRepository();
+    }
+
+    /**
      * Obtener las ediciones del campeonato
      * @return Edicion[]
      */
     public function getEdiciones(): array
     {
-        $ediciones = []; // TODO: Obtener las ediciones cuando estas existan en base de datos
-        return $ediciones;
+        return $this->edicionRepository->findAll();
     }
 
 
@@ -27,8 +40,7 @@ class ResultadosService
      */
     public function getEdicion(int $idEdicion): ?Edicion
     {
-        $edicion = null; // TODO: Obtener la edición cuando estas existan en base de datos
-        return $edicion;
+        return $this->edicionRepository->find($idEdicion);
     }
 
     /**
@@ -41,16 +53,18 @@ class ResultadosService
     public function createEdicion(string $genero, string $codigo, string $nombre): bool
     {
         // Validamos que los campos no estén vacios, que el género sea masculino o femenino y que el código y el nombre no tengan longitud menor o mayor a 50, además solo caracteres alfanumericos y espacios
-        if (empty($genero) || empty($codigo) || empty($nombre) || ($genero != 'masculino' && $genero != 'femenino') || strlen($codigo) > 50 || strlen($codigo) < 3 || strlen($nombre) > 50 || strlen($nombre) < 3 || preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $nombre) || preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $codigo)) {
+        if (empty($genero) || empty($codigo) || empty($nombre) || ($genero != 'masculino' && $genero != 'femenino') || (strlen($codigo) > 50) || strlen($codigo) < 3 || strlen($nombre) > 50 || strlen($nombre) < 3 || preg_match('/[\'^£$%&*()}{@#~?><>]/', $nombre) || preg_match('/[\'^£$%&*()}{@#~?><>]/', $codigo)) {
             return false;
         }
+
         // Generamos la edición
         $edicion = (new Edicion())
             ->setGenero($genero)
             ->setCodigo($codigo)
             ->setNombre($nombre);
 
-        return true; // TODO: Guardar la edición en el repositorio
+        // Insertamos la edición
+        return $this->edicionRepository->insert($edicion);
     }
 
     /**
@@ -64,7 +78,7 @@ class ResultadosService
     public function updateEdicion(int $idEdicion, string $genero, string $codigo, string $nombre): bool
     {
         // Validamos que los campos no estén vacios, que el género sea masculino o femenino y que el código y el nombre no tengan longitud menor o mayor a 50, además solo caracteres alfanumericos y espacios
-        if (empty($genero) || empty($codigo) || empty($nombre) || ($genero != 'masculino' && $genero != 'femenino') || strlen($codigo) > 50 || strlen($codigo) < 3 || strlen($nombre) > 50 || strlen($nombre) < 3 || preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $nombre) || preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $codigo)) {
+        if ((empty($genero) || empty($codigo) || empty($nombre) || ($genero != 'masculino' && $genero != 'femenino') || strlen($codigo) > 50 || strlen($codigo) < 3 || strlen($nombre) > 50 || strlen($nombre) < 3 || preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $nombre) || preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $codigo))) {
             return false;
         }
 
@@ -81,7 +95,8 @@ class ResultadosService
             ->setCodigo($codigo)
             ->setNombre($nombre);
 
-        return true; // TODO: Actualizar la edición en el repositorio
+        // Actualizamos la edición
+        return $this->edicionRepository->update($edicion);
     }
 
     /**
@@ -97,7 +112,8 @@ class ResultadosService
             return false;
         }
 
-        return true; // TODO: Eliminar la edición del repositorio
+        // Eliminamos la edición
+        return $this->edicionRepository->delete($edicion);
     }
 
     /**
