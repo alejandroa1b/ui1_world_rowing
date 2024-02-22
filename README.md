@@ -61,13 +61,16 @@ La estructura del proyecto está diseñada para fomentar la modularidad y la esc
 
    `cd ui1_world_rowing`
 
+3. **Instalar Dependencias:**
 
-3. **Construir las Imágenes:**
+   `composer install`
+
+4. **Construir las Imágenes:**
 
    `docker-compose build`
 
 
-4. **Ejecutar con Docker:**
+5. **Ejecutar con Docker:**
 
    `docker-compose up`
 
