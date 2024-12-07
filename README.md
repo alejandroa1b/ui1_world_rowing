@@ -15,12 +15,6 @@ Su objetivo es proporcionar una plataforma para mostrar los resultados de las co
     - `Contacto`: Formulario de contacto.
     - `Mantenimiento`: Sección para futuros formularios de administración (acceso restringido en fases futuras).
 
-## Arquitectura
-
-La aplicación sigue una arquitectura hexagonal, que separa la lógica de negocio de los detalles de implementación. La lógica de negocio se encuentra en el centro de la arquitectura, rodeada por capas que manejan la entrada y salida de datos, la interfaz de usuario y otros detalles de implementación.
-
-Además, hacemos uso de un Front Controller para gestionar todas las solicitudes web y un sistema de rutas para asociar las URL con los controladores y métodos correspondientes.
-
 ## Estructura del proyecto
 
 La estructura del proyecto se organiza de la siguiente manera:
